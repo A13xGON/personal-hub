@@ -33,6 +33,7 @@ box-shadow: 10px 10px 5px ;
     padding: 5px;
 text-align: center;
 background-color: #0D1217;
+border-radius: 10px 10px 0 0;
 }
 
 .chatbot header h2{
@@ -72,3 +73,67 @@ justify-content: flex-end;
     border-radius: 10px 10px 10px 0;
 
 }
+
+.title{
+    text-align: center;
+}
+
+.date{
+    text-align:right;
+    color: white;
+}
+
+.container{
+
+display: flex;
+justify-content: space-between;
+
+
+}
+
+.daily-task{
+    width: 300px;
+    height: 410px;
+    background-color: #B4E2F7;
+    border-radius: 15px;
+    border: 5px solid black; 
+
+    
+}
+
+
+.weather-box{
+    width: 300px;
+    height: 200px;
+    background-color: #B4E2F7;
+    border-radius: 15px;
+    border: 5px solid black; 
+   
+}
+
+.scoreboard{
+    width: 300px;
+    height: 200px;
+    background-color: #B4E2F7;
+    border-radius: 15px;
+    border: 5px solid black; 
+   
+}
+
+.joke-box{
+    width: 300px;
+    height: 200px;
+    background-color: #B4E2F7;
+    border-radius: 15px;
+    border: 5px solid black; 
+}
+
+
+.calendar-box{
+    width: 300px;
+    height: 200px;
+    background-color: #B4E2F7;
+    border-radius: 15px;
+    border: 5px solid black; 
+}
+
