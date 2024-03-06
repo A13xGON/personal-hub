@@ -13,7 +13,6 @@ font-family: "Poppins", sans-serif;
 h1,
 h2,
 p,
-li,
 #snd-btn {
     color: #fff;
 }
@@ -101,14 +100,21 @@ justify-content: space-between;
     
 }
 
-
 .weather-box{
     width: 300px;
     height: 200px;
     background-color: #B4E2F7;
     border-radius: 15px;
     border: 5px solid black; 
-   
+}
+
+.weather-box ul {
+    list-style-type: none;
+    color: black;
+}
+
+.date:hover {
+    cursor: pointer;
 }
 
 .scoreboard{
@@ -136,4 +142,6 @@ justify-content: space-between;
     border-radius: 15px;
     border: 5px solid black; 
 }
+
+
 
