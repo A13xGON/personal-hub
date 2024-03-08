@@ -21,7 +21,7 @@ const nextDateFormat = function() {
     }
 }
 
-const buildSports = function (teams) {
+const buildSports = async function (teams) {
 
     let sportsAPI_URL ="https://v2.nba.api-sports.io/standings?league=standard&season=2023&team=31";
     let teamLogoURL = "";
@@ -38,44 +38,35 @@ const buildSports = function (teams) {
         redirect: 'follow'
     };
 
-    /*fetch(sportsAPI_URL, requestOptions)
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (data) {
-                    console.log(data);
+    response = await fetch(sportsAPI_URL, requestOptions)
+ 
+    if (response.ok) {
+        data = await response.json()
+            console.log(data);
 
-                    winTotal = data['response'][0]['win']['total'];
-                    lossTotal = data['response'][0]['loss']['total'];
-                    teamLogoURL = data['response'][0]['team']['logo'];
+            winTotal = data['response'][0]['win']['total'];
+            lossTotal = data['response'][0]['loss']['total'];
+            teamLogoURL = data['response'][0]['team']['logo'];
 
-                    console.log( winTotal, lossTotal, teamLogoURL);
+            console.log( winTotal, lossTotal, teamLogoURL);
 
-                    let teamInfoEl = document.createElement("ul");
-                    let teamLogoEl = document.createElement("img");
+            console.log(winTotal);
+        } else {
+        alert('Error: ' + response.statusText);
+    }
 
-                    teamLogoEl.setAttribute("src", teamLogoURL);
-                    teamLogoEl.setAttribute("class", "teamIcon");
-
-                    teamInfoEl.appendChild(teamLogoEl);
-
-                    currentSportsEl.appendChild(teamInfoEl);
-                });
-            } else {
-                alert('Error: ' + response.statusText);
-            }
-        })*/
-    /*let teamInfoEl = document.createElement("div");*/
-
+    console.log("here");
     let sportsContainerEl = document.createElement("div");
     sportsContainerEl.setAttribute("class", "flex");
 
     let teamIconEl = document.createElement("img");
-    teamIconEl.setAttribute("src", "assets/pics/logo.png");
+    
+    teamIconEl.setAttribute("src", teamLogoURL);
     teamIconEl.setAttribute("class", "teamIcon flex-row w-1/5 p-3" );
     
     let winsLossesEl = document.createElement("div");
     winsLossesEl.setAttribute("class", "flex items-center");
-    winsLossesEl.innerHTML = "WINS AND LOSSES GO HERE";
+    winsLossesEl.innerHTML = "WINS: " + winTotal + "  / LOSSES: " + lossTotal;
 
     sportsContainerEl.appendChild(teamIconEl);
     sportsContainerEl.appendChild(winsLossesEl);
