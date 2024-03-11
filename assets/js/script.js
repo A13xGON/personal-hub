@@ -21,7 +21,11 @@ const nextDateFormat = function() {
     }
 }
 
-const buildSports = async function (teams) {
+<<<<<<< Updated upstream
+/* const buildSports = async function (teams) {
+=======
+// const buildSports = async function (teams) {
+>>>>>>> Stashed changes
 
     let sportsAPI_URL ="https://v2.nba.api-sports.io/standings?league=standard&season=2023&team=31";
     let teamLogoURL = "";
@@ -73,8 +77,8 @@ const buildSports = async function (teams) {
 
     sportsEl.appendChild(sportsContainerEl);
 
-}
-
+} 
+*/
 
 currentDate = dayjs().format(dateFormats[currentDateFormatIndex]);
 dateEl.innerHTML = dayjs().format(dateFormats[currentDateFormatIndex]);
