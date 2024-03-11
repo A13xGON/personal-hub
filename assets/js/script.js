@@ -21,7 +21,11 @@ const nextDateFormat = function() {
     }
 }
 
+<<<<<<< Updated upstream
 /* const buildSports = async function (teams) {
+=======
+// const buildSports = async function (teams) {
+>>>>>>> Stashed changes
 
     let sportsAPI_URL ="https://v2.nba.api-sports.io/standings?league=standard&season=2023&team=31";
     let teamLogoURL = "";
