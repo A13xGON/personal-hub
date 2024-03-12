@@ -24,8 +24,8 @@ var latitude = 0;
 var itervalID = window.setInterval(updateEvent, 60000);
 
 var username = localStorage.getItem('username');
-if (typeof(username) === null) {
-    var username = "Doug (default)";
+if (username === null) {
+    var username = "Doug";
     localStorage.setItem('username', username);
 }
 
