@@ -51,6 +51,7 @@ const nextDateFormat = function() {
     }
 }
 
+
 // Set city location longitude and latitude using additional api - works for major cities but gets weird for smaller or lesser known locals - but.... it's free
 // made async because I was running into coding issues with respect to code being implemented before the fetch finished. This seemed to fix the problem and I learned a little
 async function setCityLonLat(city) {
@@ -330,11 +331,10 @@ const generateGreeting = function(hour) {
     greetingEl.innerHTML = greeting;
 }
 
+
 const showSettings = function() {
     console.log("MOUSEOVER");
 }
-
-
 
 currentDate = dayjs().format(dateFormats[currentDateFormatIndex]);
 dateEl.innerHTML = dayjs().format(dateFormats[currentDateFormatIndex]);
