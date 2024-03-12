@@ -4,29 +4,39 @@ var stocksEl = document.querySelector('.stocks');
 var weatherEl = document.querySelector('.weather');
 var greetingEl = document.querySelector('.greeting');
 var eventEl = document.querySelector('.event');
-var settingsImageEl = document.querySelector('.settingsImage');
 
 var dateFormats = ["dddd, MMM D, YYYY", "MMM D, YYYY", "MMMM D, YYYY h:mm A", "ddd, MMM D, YYYY h:mm A" ];
+
 // names - figure out later
 // var sportsTeams = ["Spurs", "Mavericks", "Suns"];
 
 // instead - look up teams and create DB for them if you have time
 
 // basketball API IDs
-var sportsTeamsIDs = [31, 28, 29];
+// var sportsTeamsIDs = [31, 28, 29];
 
 // baseball API IDs
-// var sportsTeamsIDs = [15, 6];
+var sportsTeamsIDs = [15, 6];
+// var sportsTeamsIDs = [15];
 
 var longitude = 0;
 var latitude = 0;
 var itervalID = window.setInterval(updateEvent, 60000);
 
-username = "Doug";
+var username = localStorage.getItem('username');
+if (username === null) {
+    var username = "Doug";
+    localStorage.setItem('username', username);
+}
 
-var city = "San Antonio";
+var city = localStorage.getItem('city');
+if (typeof(city) === null) {
+    var city = "San Antonio";
+    localStorage.setItem('city', city);
+}
 
-stocks = ["IBM", "AAPL", "VLO", "TSLA", "AMZN", "NVDA"];
+// stocks = ["IBM", "AAPL", "VLO", "TSLA", "AMZN", "NVDA"];
+var stocks = ["AMZN", "TSLA"];
 
 //localStorage.setItem("teams", JSON.stringify(sportsTeams));
 //let newArray = JSON.parse(localStorage.getItem("teams"));
@@ -83,15 +93,10 @@ const buildStocks = async function (symbols) {
         response = await fetch(stocksAPI_URL);
         if (response.ok) {
             data = await response.json();
-            /*console.log("STOCK DATA HERE:");
-            console.log(data);
-            console.log(data[0]['symbol']);*/
             myArray.push([data[0]['symbol'], data[0]['price']])
         }
     }
     
-    
-
     let stocksContainer = document.createElement("div");
     stocksContainer.setAttribute("class", "flex flex-wrap");
 
@@ -104,7 +109,6 @@ const buildStocks = async function (symbols) {
 
     stocksEl.append(stocksContainer);
 }
-
 
 const buildWeather = async function () {
     await setCityLonLat(city);
@@ -157,7 +161,7 @@ const buildEvent = async function () {
 
 // BASEBALL BUILD - KEEP - CAN BE UTILIZED FOR OPTIONS LATER
 
-/*const buildSports = async function (teamIDs) {
+const buildSports = async function (teamIDs) {
 
     let teamData = []; // [WINS, LOSSES, LOGO-URL]
 
@@ -174,7 +178,6 @@ const buildEvent = async function () {
     for (i = 0; i < teamIDs.length; i++) {
         let newTeamData = await getTeamData(teamIDs[i]);
         teamData.push(newTeamData);
-        console.log("TEAM DATA:" + newTeamData);
     }
 
     for (i = 0; i < teamData.length; i++) {
@@ -193,7 +196,6 @@ const buildEvent = async function () {
 
         sportsContainerEl.appendChild(teamIconEl);
         sportsContainerEl.appendChild(winsLossesEl);
-
         sportsEl.appendChild(sportsContainerEl);
     }
 }
@@ -216,28 +218,21 @@ const getTeamData = async function (id) {
 
     if (response.ok) {
         data = await response.json()
-            console.log("HERE BILLY");
-            console.log(data);
-
             let wins = data['response']['games']['wins']['all']['total'];
             let losses = data['response']['games']['loses']['all']['total'];
             let logoURL = data['response']['team']['logo'];
 
             winsLossesLogo = [wins, losses, logoURL];
-            console.log(typeof(winsLossesLogo));
-            console.log(winsLossesLogo);
-
-        } else {
+    } else {
             
-             alert('Error: ' + response.statusText);
+        alert('Error: ' + response.statusText);
     }
     
-    console.log(winsLossesLogo);
     return winsLossesLogo;
-}*/
+}
 
 // BASKETBALL BUILD
-const buildSports = async function (teamIDs) {
+/*const buildSports = async function (teamIDs) {
 
     let teamData = []; // [WINS, LOSSES, LOGO-URL]
 
@@ -254,7 +249,6 @@ const buildSports = async function (teamIDs) {
     for (i = 0; i < teamIDs.length; i++) {
         let newTeamData = await getTeamData(teamIDs[i]);
         teamData.push(newTeamData);
-        console.log("TEAM DATA:" + newTeamData);
     }
 
     for (i = 0; i < teamData.length; i++) {
@@ -297,26 +291,20 @@ const getTeamData = async function (id) {
 
     if (response.ok) {
         data = await response.json()
-            console.log(data);
 
             let wins = data['response'][0]['win']['total'];
             let losses = data['response'][0]['loss']['total'];
             let logoURL = data['response'][0]['team']['logo'];
 
             winsLossesLogo = [wins, losses, logoURL];
-            console.log(typeof(winsLossesLogo));
-            console.log(winsLossesLogo);
 
         } else {
             
              alert('Error: ' + response.statusText);
     }
 
-    
-    console.log(winsLossesLogo);
     return winsLossesLogo;
-}
-
+}*/
 
 const generateGreeting = function(hour) {
     let greeting = "";
@@ -333,21 +321,27 @@ const generateGreeting = function(hour) {
 
 
 const showSettings = function() {
-    console.log("MOUSEOVER");
+    console.log(this.id + " clicked...");
 }
 
 currentDate = dayjs().format(dateFormats[currentDateFormatIndex]);
 dateEl.innerHTML = dayjs().format(dateFormats[currentDateFormatIndex]);
 
-/* HOLD buildSports(sportsTeamsIDs); */
-//buildSports(sportsTeamsIDs);
+
+buildSports(sportsTeamsIDs);
 
 buildWeather();
-// TOO MANY REQUESTS - WORKING - buildStocks(stocks);
+buildStocks(stocks);
 buildEvent();
 
 generateGreeting(dayjs().hour());
 
 dateEl.addEventListener('click', nextDateFormat);
 eventEl.addEventListener('click', buildEvent);
-settingsImageEl.addEventListener('mouseover', showSettings);
+
+let imagesArray = document.querySelectorAll(".settingsImage");
+
+imagesArray.forEach(function(elem) {
+    elem.addEventListener("click", showSettings);
+})
+
